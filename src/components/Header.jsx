@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import { Height } from "@mui/icons-material";
 
 const Header = () => {
   const navigator = useNavigate();

@@ -18,6 +18,11 @@ const Products = () => {
       .catch((error) => console.error(error));
   };
 
+  const handleUpdate = (product) => {
+    setActiveProduct(product);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     writeAllProducts();
   }, []);
@@ -43,7 +48,7 @@ const Products = () => {
           <Product
             key={product.productId}
             product={product}
-            setActiveProduct={setActiveProduct}
+            handleUpdate={handleUpdate}
             writeAllProducts={writeAllProducts}
           />
         ))}

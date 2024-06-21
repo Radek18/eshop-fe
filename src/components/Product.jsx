@@ -2,7 +2,7 @@ import { deleteProduct } from "../services/ProductService";
 
 import { Button, Paper, Stack, Typography } from "@mui/material";
 
-const Product = ({ product, setActiveProduct, writeAllProducts }) => {
+const Product = ({ product, handleUpdate, writeAllProducts }) => {
   const removeProduct = (productId) => {
     deleteProduct(productId)
       .then(() => writeAllProducts())
@@ -64,7 +64,7 @@ const Product = ({ product, setActiveProduct, writeAllProducts }) => {
       >
         <Button
           className="one-product-update-product-button"
-          onClick={() => setActiveProduct(product)}
+          onClick={() => handleUpdate(product)}
           variant="contained"
           color="primary"
         >
