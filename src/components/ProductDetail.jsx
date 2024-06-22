@@ -29,7 +29,11 @@ const ProductDetail = () => {
   return (
     <div
       className="product-detail-all-page"
-      style={{ minHeight: "100vh", display: "flex", marginTop: "64px" }}
+      style={{
+        minHeight: "calc(100vh - 64px - 64px)",
+        display: "flex",
+        marginTop: "64px",
+      }}
     >
       <Paper
         className="product-detail"

@@ -32,7 +32,7 @@ const Products = () => {
       className="products-all-page"
       style={{
         display: "flex",
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 64px - 64px)",
         marginTop: "64px",
         backgroundColor: "#d5e2ef",
       }}
