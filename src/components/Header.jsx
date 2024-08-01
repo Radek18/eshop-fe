@@ -4,10 +4,10 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 
 const Header = () => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const navigateHome = () => {
-    navigator("");
+    navigate("");
   };
 
   return (

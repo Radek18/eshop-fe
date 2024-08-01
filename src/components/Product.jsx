@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { deleteProduct } from "../services/ProductService";
 
 import { Button, Paper, Stack, Typography } from "@mui/material";
@@ -35,12 +37,12 @@ const Product = ({ product, handleUpdate, writeAllProducts }) => {
         m="10px"
         fontWeight="bold"
       >
-        <a
-          href={`/product-detail/${product.productId}`}
+        <Link
+          to={`/product-detail/${product.productId}`}
           style={{ color: "black" }}
         >
           {product.name}
-        </a>
+        </Link>
       </Typography>
 
       <Typography className="one-product-price" variant="h6" fontWeight="bold">
