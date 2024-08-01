@@ -4,8 +4,9 @@ import { deleteProduct } from "../services/ProductService";
 
 import { Button, Paper, Stack, Typography } from "@mui/material";
 
-const Product = ({ product, handleUpdate, writeAllProducts }) => {
+const Product = ({ product, handleUpdate, writeAllProducts, setIsLoading }) => {
   const removeProduct = (productId) => {
+    setIsLoading(true);
     deleteProduct(productId)
       .then(() => writeAllProducts())
       .catch((error) => console.error(error));

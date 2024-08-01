@@ -9,12 +9,15 @@ import Product from "./Product";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [activeProduct, setActiveProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const writeAllProducts = () => {
+    setIsLoading(true);
     getAllProducts()
-      .then((response) =>
-        setProducts(response.data.sort((a, b) => a.productId - b.productId))
-      )
+      .then((response) => {
+        setProducts(response.data.sort((a, b) => a.productId - b.productId));
+        setIsLoading(false);
+      })
       .catch((error) => console.error(error));
   };
 
@@ -41,15 +44,21 @@ const Products = () => {
         activeProduct={activeProduct}
         setActiveProduct={setActiveProduct}
         writeAllProducts={writeAllProducts}
+        setIsLoading={setIsLoading}
       />
 
-      <ProductList writeAllProducts={writeAllProducts}>
+      <ProductList
+        writeAllProducts={writeAllProducts}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      >
         {products.map((product) => (
           <Product
             key={product.productId}
             product={product}
             handleUpdate={handleUpdate}
             writeAllProducts={writeAllProducts}
+            setIsLoading={setIsLoading}
           />
         ))}
       </ProductList>

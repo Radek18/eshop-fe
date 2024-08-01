@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { getProduct } from "../services/ProductService";
 
-import { Paper, Typography } from "@mui/material";
+import { CircularProgress, Paper, Typography } from "@mui/material";
 
 const ProductDetail = () => {
   const [partNo, setPartNo] = useState("");
@@ -11,6 +11,7 @@ const ProductDetail = () => {
   const [description, setDescription] = useState("");
   const [forSale, setForSale] = useState("");
   const [price, setPrice] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
 
@@ -22,6 +23,7 @@ const ProductDetail = () => {
         setDescription(response.data.description);
         setForSale(response.data.forSale);
         setPrice(response.data.price);
+        setIsLoading(false);
       })
       .catch((error) => console.error(error));
   }, [id]);
@@ -41,47 +43,53 @@ const ProductDetail = () => {
         align="center"
         sx={{ flex: 1, m: "15px", p: "15px", backgroundColor: "#c2daf2" }}
       >
-        <Typography
-          className="product-detail-part-no"
-          variant="subtitle1"
-          align="left"
-        >
-          Kód {partNo}
-        </Typography>
+        {isLoading ? (
+          <CircularProgress sx={{ m: "50px" }} />
+        ) : (
+          <>
+            <Typography
+              className="product-detail-part-no"
+              variant="subtitle1"
+              align="left"
+            >
+              Kód {partNo}
+            </Typography>
 
-        <Typography
-          className="product-detail-name"
-          variant="h3"
-          marginBottom="50px"
-          fontWeight="bold"
-        >
-          {name}
-        </Typography>
+            <Typography
+              className="product-detail-name"
+              variant="h3"
+              marginBottom="50px"
+              fontWeight="bold"
+            >
+              {name}
+            </Typography>
 
-        <Typography
-          className="product-detail-description"
-          variant="subtitle1"
-          marginBottom="50px"
-        >
-          {description}
-        </Typography>
+            <Typography
+              className="product-detail-description"
+              variant="subtitle1"
+              marginBottom="50px"
+            >
+              {description}
+            </Typography>
 
-        <Typography
-          className="product-detail-price"
-          variant="h6"
-          marginBottom="50px"
-          fontWeight="bold"
-        >
-          {Math.round(price).toLocaleString("cs-CZ")} Kč
-        </Typography>
+            <Typography
+              className="product-detail-price"
+              variant="h6"
+              marginBottom="50px"
+              fontWeight="bold"
+            >
+              {Math.round(price).toLocaleString("cs-CZ")} Kč
+            </Typography>
 
-        <Typography
-          className="product-detail-for-sale"
-          variant="h6"
-          color={forSale ? "green" : "red"}
-        >
-          Skladem: {forSale ? "ANO" : "NE"}
-        </Typography>
+            <Typography
+              className="product-detail-for-sale"
+              variant="h6"
+              color={forSale ? "green" : "red"}
+            >
+              Skladem: {forSale ? "ANO" : "NE"}
+            </Typography>
+          </>
+        )}
       </Paper>
     </div>
   );

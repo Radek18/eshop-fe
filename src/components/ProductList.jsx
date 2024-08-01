@@ -1,9 +1,21 @@
 import { deleteProductsNotForSale } from "../services/ProductService";
 
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  Paper,
+  Typography,
+} from "@mui/material";
 
-const ProductList = ({ children, writeAllProducts }) => {
+const ProductList = ({
+  children,
+  writeAllProducts,
+  isLoading,
+  setIsLoading,
+}) => {
   const removeProductsNotForSale = () => {
+    setIsLoading(true);
     deleteProductsNotForSale()
       .then(() => writeAllProducts())
       .catch((error) => console.error(error));
@@ -40,14 +52,20 @@ const ProductList = ({ children, writeAllProducts }) => {
         Odstranit produkty, které nejsou skladem
       </Button>
 
-      <Grid
-        className="product-list-grid"
-        container
-        justifyContent="center"
-        sx={{ gap: "20px" }}
-      >
-        {children}
-      </Grid>
+      {isLoading ? (
+        <div>
+          <CircularProgress sx={{ m: "50px" }} />
+        </div>
+      ) : (
+        <Grid
+          className="product-list-grid"
+          container
+          justifyContent="center"
+          sx={{ gap: "20px" }}
+        >
+          {children}
+        </Grid>
+      )}
     </Paper>
   );
 };

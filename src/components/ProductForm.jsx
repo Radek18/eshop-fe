@@ -12,7 +12,12 @@ import {
   Typography,
 } from "@mui/material";
 
-const ProductForm = ({ activeProduct, setActiveProduct, writeAllProducts }) => {
+const ProductForm = ({
+  activeProduct,
+  setActiveProduct,
+  writeAllProducts,
+  setIsLoading,
+}) => {
   const [productId, setProductId] = useState(null);
   const [partNo, setPartNo] = useState("");
   const [name, setName] = useState("");
@@ -22,6 +27,8 @@ const ProductForm = ({ activeProduct, setActiveProduct, writeAllProducts }) => {
 
   const saveProduct = (event) => {
     event.preventDefault();
+
+    setIsLoading(true);
 
     const product = { partNo, name, description, forSale, price };
     createProduct(product)
@@ -36,6 +43,8 @@ const ProductForm = ({ activeProduct, setActiveProduct, writeAllProducts }) => {
 
   const modifyProduct = (event) => {
     event.preventDefault();
+
+    setIsLoading(true);
 
     const product = { productId, partNo, name, description, forSale, price };
     updateProduct(productId, product)
