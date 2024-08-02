@@ -6,23 +6,16 @@ import { getProduct } from "../services/ProductService";
 import { CircularProgress, Paper, Typography } from "@mui/material";
 
 const ProductDetail = () => {
-  const [partNo, setPartNo] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [forSale, setForSale] = useState("");
-  const [price, setPrice] = useState("");
+  const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
+  const { partNo, name, description, forSale, price } = product;
 
   useEffect(() => {
     getProduct(id)
       .then((response) => {
-        setPartNo(response.data.partNo);
-        setName(response.data.name);
-        setDescription(response.data.description);
-        setForSale(response.data.forSale);
-        setPrice(response.data.price);
+        setProduct(response.data);
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
