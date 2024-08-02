@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 
 import { getAllProducts } from "../services/ProductService";
 
-import ProductForm from "./ProductForm";
-import ProductList from "./ProductList";
-import Product from "./Product";
+import ProductForm from "../components/ProductForm";
+import ProductList from "../components/ProductList";
+import Product from "../components/Product";
 
 const Products = () => {
   const [products, setProducts] = useState([]);

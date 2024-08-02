@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Products from "./components/Products";
-import ProductDetail from "./components/ProductDetail";
+import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
+import PageNotFound from "./pages/PageNotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import PageNotFound from "./components/PageNotFound";
 
 const App = () => {
   return (
