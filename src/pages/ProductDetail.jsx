@@ -13,12 +13,17 @@ const ProductDetail = () => {
   const { partNo, name, description, forSale, price } = product;
 
   useEffect(() => {
-    getProduct(id)
-      .then((response) => {
+    const fetchProduct = async () => {
+      try {
+        const response = await getProduct(id);
         setProduct(response.data);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
         setIsLoading(false);
-      })
-      .catch((error) => console.error(error));
+      }
+    };
+    fetchProduct();
   }, [id]);
 
   return (

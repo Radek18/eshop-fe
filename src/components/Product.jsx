@@ -4,12 +4,16 @@ import { deleteProduct } from "../services/ProductService";
 
 import { Button, Paper, Stack, Typography } from "@mui/material";
 
-const Product = ({ product, handleUpdate, writeAllProducts, setIsLoading }) => {
-  const removeProduct = (productId) => {
+const Product = ({ product, handleUpdate, fetchAllProducts, setIsLoading }) => {
+  const removeProduct = async (productId) => {
     setIsLoading(true);
-    deleteProduct(productId)
-      .then(() => writeAllProducts())
-      .catch((error) => console.error(error));
+
+    try {
+      await deleteProduct(productId);
+      fetchAllProducts();
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (

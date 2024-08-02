@@ -11,14 +11,17 @@ const Products = () => {
   const [activeProduct, setActiveProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const writeAllProducts = () => {
+  const fetchAllProducts = async () => {
     setIsLoading(true);
-    getAllProducts()
-      .then((response) => {
-        setProducts(response.data.sort((a, b) => a.productId - b.productId));
-        setIsLoading(false);
-      })
-      .catch((error) => console.error(error));
+
+    try {
+      const response = await getAllProducts();
+      setProducts(response.data.sort((a, b) => a.productId - b.productId));
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleUpdate = (product) => {
@@ -27,7 +30,7 @@ const Products = () => {
   };
 
   useEffect(() => {
-    writeAllProducts();
+    fetchAllProducts();
   }, []);
 
   return (
@@ -43,12 +46,12 @@ const Products = () => {
       <ProductForm
         activeProduct={activeProduct}
         setActiveProduct={setActiveProduct}
-        writeAllProducts={writeAllProducts}
+        fetchAllProducts={fetchAllProducts}
         setIsLoading={setIsLoading}
       />
 
       <ProductList
-        writeAllProducts={writeAllProducts}
+        fetchAllProducts={fetchAllProducts}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       >
@@ -57,7 +60,7 @@ const Products = () => {
             key={product.productId}
             product={product}
             handleUpdate={handleUpdate}
-            writeAllProducts={writeAllProducts}
+            fetchAllProducts={fetchAllProducts}
             setIsLoading={setIsLoading}
           />
         ))}

@@ -15,7 +15,7 @@ import {
 const ProductForm = ({
   activeProduct,
   setActiveProduct,
-  writeAllProducts,
+  fetchAllProducts,
   setIsLoading,
 }) => {
   const [productId, setProductId] = useState(null);
@@ -25,32 +25,40 @@ const ProductForm = ({
   const [forSale, setForSale] = useState(true);
   const [price, setPrice] = useState("");
 
-  const saveProduct = (event) => {
+  const saveProduct = async (event) => {
     event.preventDefault();
 
     setIsLoading(true);
 
     const product = { partNo, name, description, forSale, price };
-    createProduct(product)
-      .then(() => writeAllProducts())
-      .then(setPartNo(""))
-      .then(setName(""))
-      .then(setDescription(""))
-      .then(setForSale(true))
-      .then(setPrice(""))
-      .catch((error) => console.error(error));
+
+    try {
+      await createProduct(product);
+      fetchAllProducts();
+      setPartNo("");
+      setName("");
+      setDescription("");
+      setForSale(true);
+      setPrice("");
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
-  const modifyProduct = (event) => {
+  const modifyProduct = async (event) => {
     event.preventDefault();
 
     setIsLoading(true);
 
     const product = { productId, partNo, name, description, forSale, price };
-    updateProduct(productId, product)
-      .then(() => writeAllProducts())
-      .then(setActiveProduct(null))
-      .catch((error) => console.error(error));
+
+    try {
+      await updateProduct(productId, product);
+      fetchAllProducts();
+      setActiveProduct(null);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {

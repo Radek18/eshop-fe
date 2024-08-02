@@ -10,15 +10,19 @@ import {
 
 const ProductList = ({
   children,
-  writeAllProducts,
+  fetchAllProducts,
   isLoading,
   setIsLoading,
 }) => {
-  const removeProductsNotForSale = () => {
+  const removeProductsNotForSale = async () => {
     setIsLoading(true);
-    deleteProductsNotForSale()
-      .then(() => writeAllProducts())
-      .catch((error) => console.error(error));
+
+    try {
+      await deleteProductsNotForSale();
+      fetchAllProducts();
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
